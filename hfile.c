@@ -499,7 +499,10 @@ void hclose_abruptly(hFILE *fp)
 #define HAVE_SETMODE
 #endif
 #include <fcntl.h>
-#include <unistd.h>
+
+#ifndef _MSC_VER
+  #include <unistd.h>
+#endif
 
 /* For Unix, it doesn't matter whether a file descriptor is a socket.
    However Windows insists on send()/recv() and its own closesocket()
@@ -530,7 +533,7 @@ static ssize_t fd_write(hFILE *fpv, const void *buffer, size_t nbytes)
         n = fp->is_socket?  send(fp->fd, buffer, nbytes, 0)
                          : write(fp->fd, buffer, nbytes);
     } while (n < 0 && errno == EINTR);
-#ifdef _WIN32
+#if defined( _WIN32 ) && !defined( _MSC_VER )
         // On windows we have no SIGPIPE.  Instead write returns
         // EINVAL.  We check for this and our fd being a pipe.
         // If so, we raise SIGTERM instead of SIGPIPE.  It's not

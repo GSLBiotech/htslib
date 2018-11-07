@@ -26,6 +26,10 @@ DEALINGS IN THE SOFTWARE.  */
 #ifndef HTSLIB_HFILE_H
 #define HTSLIB_HFILE_H
 
+#ifdef _MSC_VER
+  #include <msvc.h>
+#endif
+
 #include <string.h>
 
 #include <sys/types.h>

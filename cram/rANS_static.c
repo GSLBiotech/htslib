@@ -40,10 +40,14 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
+
+#ifndef _MSC_VER
+  #include <unistd.h>
+  #include <sys/time.h>
+#endif
+
 #include <assert.h>
 #include <string.h>
-#include <sys/time.h>
 
 #include "cram/rANS_static.h"
 #include "cram/rANS_byte.h"

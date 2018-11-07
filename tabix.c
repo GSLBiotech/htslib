@@ -27,9 +27,13 @@ DEALINGS IN THE SOFTWARE.  */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+
+#ifndef _MSC_VER
+  #include <unistd.h>
+  #include <strings.h>
+#endif
+
 #include <string.h>
-#include <strings.h>
 #include <getopt.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -211,7 +215,7 @@ static int query_regions(args_t *args, char *fname, char **regs, int nregs)
                 }
                 tbx_itr_destroy(itr);
             }
-            free(seq);
+            free( (char**) seq);
         }
         free(str.s);
         tbx_destroy(tbx);
@@ -237,7 +241,7 @@ static int query_chroms(char *fname)
         seq = tbx_seqnames(tbx, &nseq);
         for (i=0; i<nseq; i++)
             printf("%s\n", seq[i]);
-        free(seq);
+        free( (char**) seq);
         tbx_destroy(tbx);
     }
     else if ( ftype==IS_BCF )
@@ -252,7 +256,7 @@ static int query_chroms(char *fname)
         seq = bcf_index_seqnames(idx, hdr, &nseq);
         for (i=0; i<nseq; i++)
             printf("%s\n", seq[i]);
-        free(seq);
+        free( (char**) seq);
         bcf_hdr_destroy(hdr);
         hts_idx_destroy(idx);
     }

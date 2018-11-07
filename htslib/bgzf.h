@@ -30,6 +30,10 @@
 #ifndef HTSLIB_BGZF_H
 #define HTSLIB_BGZF_H
 
+#ifdef _MSC_VER
+  #include <msvc.h>
+#endif
+
 #include <stdint.h>
 #include <stdio.h>
 #include <zlib.h>

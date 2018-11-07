@@ -47,7 +47,7 @@ extern "C" {
 
 #ifndef _CRAM_STRUCTS_H_
 enum cram_block_method {
-    ERROR    = -1,
+    ERR      = -1,
     RAW      = 0,
     GZIP     = 1,
     BZIP2    = 2,

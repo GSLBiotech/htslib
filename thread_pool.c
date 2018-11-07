@@ -32,10 +32,16 @@ DEALINGS IN THE SOFTWARE.  */
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/time.h>
+
+#ifndef _MSC_VER
+  #include <sys/time.h>
+  #include <unistd.h>
+#else
+  #include <msvc.h>
+#endif
+
 #include <assert.h>
 #include <stdarg.h>
-#include <unistd.h>
 #include <limits.h>
 
 #include "thread_pool_internal.h"

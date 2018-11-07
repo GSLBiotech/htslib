@@ -37,7 +37,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
+
+#ifndef _MSC_VER
+  #include <unistd.h>
+#endif
+
 #include <stdarg.h>
 
 #include "htslib/hts_log.h"
@@ -269,7 +273,7 @@ mFILE *mfreopen(const char *path, const char *mode_str, FILE *fp) {
     if (strchr(mode_str, 'w'))
         w = 1, mode |= MF_WRITE | MF_TRUNC;
     if (strchr(mode_str, 'a'))
-        w = a = 1, mode |= MF_WRITE | MF_APPEND;
+        w = a = 1, mode |= MF_WRITE | MF_APPND;
     if (strchr(mode_str, 'b'))
         b = 1, mode |= MF_BINARY;
     if (strchr(mode_str, 'x'))
@@ -516,7 +520,7 @@ size_t mfwrite(void *ptr, size_t size, size_t nmemb, mFILE *mf) {
         return 0;
 
     /* Append mode => forced all writes to end of file */
-    if (mf->mode & MF_APPEND)
+    if (mf->mode & MF_APPND)
         mf->offset = mf->size;
 
     /* Make sure we have enough room */

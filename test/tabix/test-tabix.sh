@@ -175,8 +175,10 @@ tabix_test() {
 
 echo "Testing tabix..."
 
-bgzip="../../bgzip"
-tabix="../../tabix"
+EXT=$(../extension.sh)
+
+bgzip="../../bgzip$EXT"
+tabix="../../tabix$EXT"
 
 tabix_test $@
 

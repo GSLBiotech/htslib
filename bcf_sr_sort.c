@@ -24,7 +24,9 @@
 
 #include <config.h>
 
-#include <strings.h>
+#ifndef _MSC_VER
+  #include <strings.h>
+#endif
 
 #include "bcf_sr_sort.h"
 #include "htslib/khash_str2int.h"

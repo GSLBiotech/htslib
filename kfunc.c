@@ -26,6 +26,10 @@
 
 #include <config.h>
 
+#ifdef _MSC_VER
+  #include <msvc.h>
+#endif
+
 #include <math.h>
 #include <stdlib.h>
 #include "htslib/kfunc.h"

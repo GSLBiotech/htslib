@@ -29,7 +29,11 @@ DEALINGS IN THE SOFTWARE.  */
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
-#include <strings.h>
+
+#ifndef _MSC_VER
+  #include <strings.h>
+#endif
+
 #include <stdlib.h>
 #include <limits.h>
 #include <stdint.h>

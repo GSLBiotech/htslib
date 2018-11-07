@@ -27,6 +27,10 @@
 #ifndef KNETFILE_H
 #define KNETFILE_H
 
+#ifdef _MSC_VER
+  #include <msvc.h>
+#endif
+
 #include <stdint.h>
 #include <fcntl.h>
 #include <sys/types.h>

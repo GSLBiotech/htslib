@@ -26,6 +26,10 @@
 #ifndef KSTRING_H
 #define KSTRING_H
 
+#ifdef _MSC_VER
+  #include <msvc.h>
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>

@@ -51,7 +51,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+
+#ifndef _MSC_VER
+  #include <unistd.h>
+#else
+  #include <msvc.h>
+#endif
+
 #include <zlib.h>
 #ifdef HAVE_LIBBZ2
 #include <bzlib.h>
@@ -4167,6 +4173,12 @@ cram_fd *cram_dopen(hFILE *fp, const char *filename, const char *mode) {
     fd->own_pool    = 0;
     fd->pool        = NULL;
     fd->rqueue      = NULL;
+
+    fd->metrics_lock  = PTHREAD_MUTEX_INITIALIZER;
+    fd->ref_lock      = PTHREAD_MUTEX_INITIALIZER;
+    fd->range_lock    = PTHREAD_MUTEX_INITIALIZER;
+    fd->bam_list_lock = PTHREAD_MUTEX_INITIALIZER;
+
     fd->job_pending = NULL;
     fd->ooc         = 0;
     fd->required_fields = INT_MAX;

@@ -29,9 +29,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include <unistd.h>
-#include <assert.h>
+
+#ifndef _MSC_VER
+  #include <unistd.h>
+#endif
+
 #include <pthread.h>
+#include <assert.h>
 #include <sys/types.h>
 #include <inttypes.h>
 
