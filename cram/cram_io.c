@@ -4174,10 +4174,10 @@ cram_fd *cram_dopen(hFILE *fp, const char *filename, const char *mode) {
     fd->pool        = NULL;
     fd->rqueue      = NULL;
 
-    fd->metrics_lock  = PTHREAD_MUTEX_INITIALIZER;
-    fd->ref_lock      = PTHREAD_MUTEX_INITIALIZER;
-    fd->range_lock    = PTHREAD_MUTEX_INITIALIZER;
-    fd->bam_list_lock = PTHREAD_MUTEX_INITIALIZER;
+    pthread_mutex_init( & fd->metrics_lock,  NULL );
+    pthread_mutex_init( & fd->ref_lock,      NULL );
+    pthread_mutex_init( & fd->range_lock,    NULL );
+    pthread_mutex_init( & fd->bam_list_lock, NULL );
 
     fd->job_pending = NULL;
     fd->ooc         = 0;
