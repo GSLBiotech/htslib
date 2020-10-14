@@ -29,9 +29,9 @@ LINK   = link
 htslib_default_libs =
 
 CPPFLAGS =
-CFLAGS   = /MT /O2 /TC /I. /IC:\$(TPS)\pthreads4w\static\include /IC:\$(TPS)\wingetopt\static\include /IC:\$(TPS)\zlib\static\include /IC:\$(TPS)\bzip2\static\include /IC:\$(TPS)\xz\static\include /DPTW32_STATIC_LIB /DLZMA_API_STATIC
+CFLAGS   = /MT /O2 /TC /I. /I$(TPS)\pthreads4w\static\include /I$(TPS)\wingetopt\static\include /I$(TPS)\zlib\static\include /I$(TPS)\bzip2\static\include /I$(TPS)\xz\static\include /DPTW32_STATIC_LIB /DLZMA_API_STATIC
 EXTRA_CFLAGS_PIC = -fpic
-LDFLAGS  = /libpath:C:\$(TPS)\pthreads4w\static\lib /libpath:C:\$(TPS)\zlib\static\lib /libpath:C:\$(TPS)\bzip2\static\lib /libpath:C:\$(TPS)\xz\static\lib /libpath:C:\$(TPS)\wingetopt\static\lib
+LDFLAGS  = /libpath:$(TPS)\pthreads4w\static\lib /libpath:$(TPS)\zlib\static\lib /libpath:$(TPS)\bzip2\static\lib /libpath:$(TPS)\xz\static\lib /libpath:$(TPS)\wingetopt\static\lib
 LIBS     = $(htslib_default_libs) ws2_32.lib wingetopt.lib liblzma.lib pthreadVC2.lib zlib.lib libbz2.lib
 
 prefix      = /usr/local

@@ -29,9 +29,9 @@ LINK   = link
 htslib_default_libs =
 
 CPPFLAGS =
-CFLAGS   = /MD /O2 /TC /I. /IC:\$(TPS)\pthreads4w\include /IC:\$(TPS)\wingetopt\include /IC:\$(TPS)\zlib\include /IC:\$(TPS)\bzip2\include /IC:\$(TPS)\xz\include /DWINGETOPT_SHARED_LIB
+CFLAGS   = /MD /O2 /TC /I. /I$(TPS)\pthreads4w\include /I$(TPS)\wingetopt\include /I$(TPS)\zlib\include /I$(TPS)\bzip2\include /I$(TPS)\xz\include /DWINGETOPT_SHARED_LIB
 EXTRA_CFLAGS_PIC = -fpic
-LDFLAGS  = /libpath:C:\$(TPS)\pthreads4w\lib /libpath:C:\$(TPS)\zlib\lib /libpath:C:\$(TPS)\bzip2\lib /libpath:C:\$(TPS)\xz\lib /libpath:C:\$(TPS)\wingetopt\lib
+LDFLAGS  = /libpath:$(TPS)\pthreads4w\lib /libpath:$(TPS)\zlib\lib /libpath:$(TPS)\bzip2\lib /libpath:$(TPS)\xz\lib /libpath:$(TPS)\wingetopt\lib
 LIBS     = $(htslib_default_libs) ws2_32.lib wingetopt.lib liblzma.lib pthreadVC2.lib zlib.lib libbz2.lib
 
 prefix      = /usr/local
