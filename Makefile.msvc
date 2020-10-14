@@ -26,14 +26,14 @@ CC     = cl
 LINK   = link
 
 # Default libraries to link if configure is not used
-htslib_default_libs = 
+htslib_default_libs =
 
 CPPFLAGS =
-CFLAGS   = /MD /O2 /TC /I. /IC:\3ps\pthreads4w\include /IC:\3ps\wingetopt\include /IC:\3ps\zlib\include /IC:\3ps\bzip2\include /IC:\3ps\xz\include /DWINGETOPT_SHARED_LIB
+CFLAGS   = /MD /O2 /TC /I. /IC:\$(TPS)\pthreads4w\include /IC:\$(TPS)\wingetopt\include /IC:\$(TPS)\zlib\include /IC:\$(TPS)\bzip2\include /IC:\$(TPS)\xz\include /DWINGETOPT_SHARED_LIB
 EXTRA_CFLAGS_PIC = -fpic
-LDFLAGS  = /libpath:C:\3ps\pthreads4w\lib /libpath:C:\3ps\zlib\lib /libpath:C:\3ps\bzip2\lib /libpath:C:\3ps\xz\lib /libpath:C:\3ps\wingetopt\lib
+LDFLAGS  = /libpath:C:\$(TPS)\pthreads4w\lib /libpath:C:\$(TPS)\zlib\lib /libpath:C:\$(TPS)\bzip2\lib /libpath:C:\$(TPS)\xz\lib /libpath:C:\$(TPS)\wingetopt\lib
 LIBS     = $(htslib_default_libs) ws2_32.lib wingetopt.lib liblzma.lib pthreadVC2.lib zlib.lib libbz2.lib
-       
+
 prefix      = /usr/local
 exec_prefix = $(prefix)
 bindir      = $(exec_prefix)/bin
@@ -179,7 +179,7 @@ TEST_OBJS = \
   test/test-bcf-translate.obj
 
 $(TOP_OBJS) $(BUILT_PROGRAMS_OBJS): %.obj: %.c
-	$(CC) $(CFLAGS) -I. $(CPPFLAGS) /c $< 
+	$(CC) $(CFLAGS) -I. $(CPPFLAGS) /c $<
 
 # Must split rules so cl can output objects into their subdirectory.
 $(CRAM_OBJS) $(TEST_OBJS): %.obj: %.c
@@ -264,7 +264,7 @@ BUILT_PLUGINS = $(PLUGIN_OBJS:.obj=$(PLUGIN_EXT))
 
 plugins: $(BUILT_PLUGINS)
 
-libhts.lib: $(LIBHTS_OBJS) 
+libhts.lib: $(LIBHTS_OBJS)
 	@-rm -f $@
 	lib $(LIBHTS_OBJS) /out:$@
 
@@ -280,7 +280,7 @@ print-config:
 # file used at runtime (when $LD_LIBRARY_PATH includes the build directory).
 
 libhts.so: $(LIBHTS_OBJS:.obj=.pico)
-	$(CC) -shared -Wl,-soname,libhts.so.$(LIBHTS_SOVERSION) $(LDFLAGS) -o $@ $(LIBHTS_OBJS:.obj=.pico) $(LIBS) 
+	$(CC) -shared -Wl,-soname,libhts.so.$(LIBHTS_SOVERSION) $(LDFLAGS) -o $@ $(LIBHTS_OBJS:.obj=.pico) $(LIBS)
 	ln -sf $@ libhts.so.$(LIBHTS_SOVERSION)
 
 # Similarly this also creates libhts.NN.dylib as a byproduct, so that programs
@@ -292,14 +292,14 @@ libhts.dylib: $(LIBHTS_OBJS)
 	ln -sf $@ libhts.$(LIBHTS_SOVERSION).dylib
 
 cyghts-$(LIBHTS_SOVERSION).dll: $(LIBHTS_OBJS)
-	$(CC) -shared -Wl,--out-implib=libhts.dll.a -Wl,--export-all-symbols -Wl,--enable-auto-import $(LDFLAGS) -o $@ -Wl,--whole-archive $(LIBHTS_OBJS) -Wl,--no-whole-archive $(LIBS) 
+	$(CC) -shared -Wl,--out-implib=libhts.dll.a -Wl,--export-all-symbols -Wl,--enable-auto-import $(LDFLAGS) -o $@ -Wl,--whole-archive $(LIBHTS_OBJS) -Wl,--no-whole-archive $(LIBS)
 
 hts-$(LIBHTS_SOVERSION).dll: $(LIBHTS_OBJS)
-	link $(LIBHTS_OBJS) /dll /out:$@ $(LDFLAGS) $(LIBS) 
+	link $(LIBHTS_OBJS) /dll /out:$@ $(LDFLAGS) $(LIBS)
 
 
 .pico.so:
-	$(CC) -shared -Wl,-E $(LDFLAGS) -o $@ $< $(LIBS) 
+	$(CC) -shared -Wl,-E $(LDFLAGS) -o $@ $< $(LIBS)
 
 .o.bundle:
 	$(CC) -bundle -Wl,-undefined,dynamic_lookup $(LDFLAGS) -o $@ $< $(LIBS)
@@ -390,37 +390,37 @@ test/hts_endian: test/hts_endian.obj
 	$(LINK) $(LDFLAGS) /out:$@ test/hts_endian.obj $(LIBS)
 
 test/fieldarith: test/fieldarith.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/fieldarith.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/fieldarith.obj libhts.lib $(LIBS)
 
 test/hfile: test/hfile.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/hfile.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/hfile.obj libhts.lib $(LIBS)
 
 test/sam: test/sam.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/sam.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/sam.obj libhts.lib $(LIBS)
 
 test/test_bgzf: test/test_bgzf.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/test_bgzf.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/test_bgzf.obj libhts.lib $(LIBS)
 
 test/test_realn: test/test_realn.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/test_realn.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/test_realn.obj libhts.lib $(LIBS)
 
 test/test-regidx: test/test-regidx.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/test-regidx.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/test-regidx.obj libhts.lib $(LIBS)
 
 test/test_view: test/test_view.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/test_view.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/test_view.obj libhts.lib $(LIBS)
 
 test/test-vcf-api: test/test-vcf-api.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/test-vcf-api.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/test-vcf-api.obj libhts.lib $(LIBS)
 
 test/test-vcf-sweep: test/test-vcf-sweep.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/test-vcf-sweep.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/test-vcf-sweep.obj libhts.lib $(LIBS)
 
 test/test-bcf-sr: test/test-bcf-sr.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/test-bcf-sr.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/test-bcf-sr.obj libhts.lib $(LIBS)
 
 test/test-bcf-translate: test/test-bcf-translate.obj libhts.lib
-	$(LINK) $(LDFLAGS) /out:$@ test/test-bcf-translate.obj libhts.lib $(LIBS) 
+	$(LINK) $(LDFLAGS) /out:$@ test/test-bcf-translate.obj libhts.lib $(LIBS)
 
 test/hts_endian.obj: test/hts_endian.c config.h $(htslib_hts_endian_h)
 test/fieldarith.obj: test/fieldarith.c config.h $(htslib_sam_h)
@@ -439,22 +439,22 @@ test/test-bcf-translate.obj: test/test-bcf-translate.c config.h $(htslib_vcf_h)
 
 
 test/thrash_threads1: test/thrash_threads1.obj libhts.a
-	$(CC) $(LDFLAGS) -o $@ test/thrash_threads1.obj libhts.a $(LIBS) 
+	$(CC) $(LDFLAGS) -o $@ test/thrash_threads1.obj libhts.a $(LIBS)
 
 test/thrash_threads2: test/thrash_threads2.obj libhts.a
-	$(CC) $(LDFLAGS) -o $@ test/thrash_threads2.obj libhts.a $(LIBS) 
+	$(CC) $(LDFLAGS) -o $@ test/thrash_threads2.obj libhts.a $(LIBS)
 
 test/thrash_threads3: test/thrash_threads3.obj libhts.a
-	$(CC) $(LDFLAGS) -o $@ test/thrash_threads3.obj libhts.a $(LIBS) 
+	$(CC) $(LDFLAGS) -o $@ test/thrash_threads3.obj libhts.a $(LIBS)
 
 test/thrash_threads4: test/thrash_threads4.obj libhts.a
-	$(CC) $(LDFLAGS) -o $@ test/thrash_threads4.obj libhts.a $(LIBS) 
+	$(CC) $(LDFLAGS) -o $@ test/thrash_threads4.obj libhts.a $(LIBS)
 
 test/thrash_threads5: test/thrash_threads5.obj libhts.a
 	$(CC) $(LDFLAGS) -o $@ test/thrash_threads5.obj libhts.a $(LIBS)
 
 test/thrash_threads6: test/thrash_threads6.obj libhts.a
-	$(CC) $(LDFLAGS) -o $@ test/thrash_threads6.obj libhts.a $(LIBS) 
+	$(CC) $(LDFLAGS) -o $@ test/thrash_threads6.obj libhts.a $(LIBS)
 
 test_thrash: $(BUILT_THRASH_PROGRAMS)
 
