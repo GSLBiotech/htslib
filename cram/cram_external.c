@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2015 Genome Research Ltd.
+Copyright (c) 2015, 2018-2019 Genome Research Ltd.
 Author: James Bonfield <jkb@sanger.ac.uk>
 
 Redistribution and use in source and binary forms, with or without
@@ -38,17 +38,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * containers and blocks in a robust manner.
  */
 
+#define HTS_BUILDING_LIBRARY // Enables HTSLIB_EXPORT, see htslib/hts_defs.h
 #include <config.h>
 
-#include "htslib/hfile.h"
-#include "cram/cram.h"
+#include "../htslib/hfile.h"
+#include "cram.h"
 
 /*
  *-----------------------------------------------------------------------------
  * cram_fd
  */
-SAM_hdr *cram_fd_get_header(cram_fd *fd) { return fd->header; }
-void cram_fd_set_header(cram_fd *fd, SAM_hdr *hdr) { fd->header = hdr; }
+sam_hdr_t *cram_fd_get_header(cram_fd *fd) { return fd->header; }
+void cram_fd_set_header(cram_fd *fd, sam_hdr_t *hdr) { fd->header = hdr; }
 
 int cram_fd_get_version(cram_fd *fd) { return fd->version; }
 void cram_fd_set_version(cram_fd *fd, int vers) { fd->version = vers; }
@@ -130,15 +131,15 @@ static int cram_block_compression_hdr_set_DS(cram_block_compression_hdr *ch,
 
     switch (ch->codecs[ds]->codec) {
     case E_HUFFMAN:
-        if (ch->codecs[ds]->huffman.ncodes != 1)
+        if (ch->codecs[ds]->u.huffman.ncodes != 1)
             return -1;
-        ch->codecs[ds]->huffman.codes[0].symbol = new_rg;
+        ch->codecs[ds]->u.huffman.codes[0].symbol = new_rg;
         return 0;
 
     case E_BETA:
-        if (ch->codecs[ds]->beta.nbits != 0)
+        if (ch->codecs[ds]->u.beta.nbits != 0)
             return -1;
-        ch->codecs[ds]->beta.offset = -new_rg;
+        ch->codecs[ds]->u.beta.offset = -new_rg;
         return 0;
 
     default:
@@ -209,9 +210,12 @@ void cram_block_set_crc32(cram_block *b, int32_t crc) { b->crc32 = crc; }
 void cram_block_set_data(cram_block *b, void *data) { BLOCK_DATA(b) = data; }
 void cram_block_set_size(cram_block *b, int32_t size) { BLOCK_SIZE(b) = size; }
 
-int cram_block_append(cram_block *b, void *data, int size) {
+int cram_block_append(cram_block *b, const void *data, int size) {
     BLOCK_APPEND(b, data, size);
-    return BLOCK_DATA(b) ? 0 : -1; // It'll do for now...
+    return 0;
+
+ block_err:
+    return -1;
 }
 void cram_block_update_size(cram_block *b) { BLOCK_UPLEN(b); }
 
@@ -278,7 +282,7 @@ int cram_copy_slice(cram_fd *in, cram_fd *out, int32_t num_slice) {
  * the container, meaning multiple compression headers to manipulate.
  * Changing RG may change the size of the compression header and
  * therefore the length field in the container.  Hence we rewrite all
- * blocks just incase and also emit the adjusted container.
+ * blocks just in case and also emit the adjusted container.
  *
  * The current implementation can only cope with renumbering a single
  * RG (and only then if it is using HUFFMAN or BETA codecs).  In
@@ -312,7 +316,8 @@ int cram_transcode_rg(cram_fd *in, cram_fd *out,
     ch = cram_decode_compression_header(in, o_blk);
     if (cram_block_compression_hdr_set_rg(ch, new_rg) != 0)
         return -1;
-    cram_block_compression_hdr_decoder2encoder(in, ch);
+    if (cram_block_compression_hdr_decoder2encoder(in, ch) != 0)
+        return -1;
     n_blk = cram_encode_compression_header(in, c, ch);
     cram_free_compression_header(ch);
 

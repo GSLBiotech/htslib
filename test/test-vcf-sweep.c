@@ -1,6 +1,6 @@
 /*  test/test-vcf-sweep.c -- VCF test harness.
 
-    Copyright (C) 2013 Genome Research Ltd.
+    Copyright (C) 2013-2014 Genome Research Ltd.
 
     Author: Petr Danecek <pd3@sanger.ac.uk>
 
@@ -25,7 +25,8 @@ DEALINGS IN THE SOFTWARE.  */
 #include <config.h>
 
 #include <stdio.h>
-#include <htslib/vcf_sweep.h>
+
+#include "../htslib/vcf_sweep.h"
 
 int main(int argc, char **argv)
 {

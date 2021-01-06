@@ -30,9 +30,10 @@ DEALINGS IN THE SOFTWARE.  */
 #include <errno.h>
 #include <getopt.h>
 #include <limits.h>
-#include "htslib/sam.h"
-#include "htslib/hts.h"
-#include "htslib/faidx.h"
+
+#include "../htslib/sam.h"
+#include "../htslib/hts.h"
+#include "../htslib/faidx.h"
 
 void usage(const char *prog) {
     fprintf(stderr, "Usage: %s -i <in.sam> -o <out.sam> -f <ref.fa>\n", prog);
@@ -47,7 +48,7 @@ int main(int argc, char **argv) {
     char *ref_seq = NULL;
     char modew[8] = "w";
     faidx_t *fai = NULL;
-    bam_hdr_t *hdr = NULL;
+    sam_hdr_t *hdr = NULL;
     bam1_t *rec = NULL;
     int c, res, last_ref = -1, ref_len = 0;
     int adjust = 0, extended = 0, recalc = 0, flags = 0;
@@ -151,7 +152,7 @@ int main(int argc, char **argv) {
         goto fail;
     }
 
-    bam_hdr_destroy(hdr);
+    sam_hdr_destroy(hdr);
     bam_destroy1(rec);
     free(ref_seq);
     fai_destroy(fai);
@@ -159,7 +160,7 @@ int main(int argc, char **argv) {
     return EXIT_SUCCESS;
 
  fail:
-    if (hdr) bam_hdr_destroy(hdr);
+    if (hdr) sam_hdr_destroy(hdr);
     if (rec) bam_destroy1(rec);
     if (in) hts_close(in);
     if (out) hts_close(out);
