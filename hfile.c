@@ -55,10 +55,6 @@ DEALINGS IN THE SOFTWARE.  */
 #define EPROTONOSUPPORT ENOSYS
 #endif
 
-#ifndef SSIZE_MAX /* SSIZE_MAX is POSIX 1 */
-#define SSIZE_MAX LONG_MAX
-#endif
-
 /* hFILE fields are used as follows:
 
    char *buffer;     // Pointer to the start of the I/O buffer

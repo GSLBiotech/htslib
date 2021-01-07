@@ -26,11 +26,11 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 #include <stdio.h>
 #include <fcntl.h>
 
 #ifndef _MSC_VER
+  #include <strings.h>
   #include <unistd.h>
 #endif
 

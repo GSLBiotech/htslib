@@ -33,7 +33,10 @@ DEALINGS IN THE SOFTWARE.
 #include <sys/stat.h>
 #include <inttypes.h>
 #include <fcntl.h>
-#include <unistd.h>
+
+#ifndef _MSC_VER
+  #include <unistd.h>
+#endif
 
 #include "../htslib/bgzf.h"
 #include "../htslib/hfile.h"
@@ -724,7 +727,7 @@ static int test_tell_seek_getc(Files *f, const char *mode,
 
     BGZF* bgz = NULL;
     ssize_t bg_put;
-    size_t num_points = 10;
+    #define num_points 10
     size_t i, j, k, iskip = f->ltext / num_points;
     size_t offsets[3] = { 0, 100, 50 };
     size_t points[num_points];
@@ -824,7 +827,6 @@ static int test_tell_read(Files *f, const char *mode) {
 
     BGZF* bgz = NULL;
     ssize_t bg_put;
-    size_t num_points = 10;
     size_t i, iskip = f->ltext / num_points;
     int64_t point_vos[num_points];
 

@@ -37,4 +37,8 @@ typedef SSIZE_T ssize_t;
 
 #define usleep Sleep
 
+#ifndef SSIZE_MAX /* SSIZE_MAX is POSIX 1 */
+  #define SSIZE_MAX LONG_MAX
+#endif
+
 #endif //MSVC_H

@@ -123,6 +123,7 @@ typedef struct bcf_hdr_t {
     int32_t m[3];          // m: allocated size of the dictionary block in use (see n above)
 } bcf_hdr_t;
 
+HTSLIB_EXPORT
 extern uint8_t bcf_type_shift[];
 
 /**************
@@ -1340,8 +1341,8 @@ which works for both BCF and VCF.
 #define BCF_MIN_BT_INT16 (-32760)      /* INT16_MIN + 8 */
 #define BCF_MIN_BT_INT32 (-2147483640) /* INT32_MIN + 8 */
 
-extern uint32_t bcf_float_vector_end;
-extern uint32_t bcf_float_missing;
+extern HTSLIB_EXPORT uint32_t bcf_float_vector_end;
+extern HTSLIB_EXPORT uint32_t bcf_float_missing;
 static inline void bcf_float_set(float *ptr, uint32_t value)
 {
     union { uint32_t i; float f; } u;

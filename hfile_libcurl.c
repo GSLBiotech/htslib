@@ -28,10 +28,10 @@ DEALINGS IN THE SOFTWARE.  */
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
 #include <errno.h>
 #include <pthread.h>
 #ifndef _WIN32
+  #include <strings.h>
 # include <sys/select.h>
 #endif
 #include <assert.h>

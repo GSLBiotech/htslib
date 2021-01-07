@@ -2342,7 +2342,7 @@ int sam_state_destroy(htsFile *fp) {
             if (fd->q)
                 hts_tpool_wake_dispatch(fd->q); // unstick the reader
 
-            if (!fp->is_write && fd->q && fd->dispatcher) {
+            if (!fp->is_write && fd->q) {
                 for (;;) {
                     // Avoid deadlocks with dispatcher
                     if (fd->command == SAM_CLOSE_DONE)

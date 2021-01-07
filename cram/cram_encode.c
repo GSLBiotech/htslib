@@ -36,8 +36,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
+
+#ifndef _MSC_VER
+  #include <strings.h>
+#endif
+
 #include <zlib.h>
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <math.h>

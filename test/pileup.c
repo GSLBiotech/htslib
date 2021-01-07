@@ -46,7 +46,11 @@ samtools mpileup -B -Q 0 in.bam | perl -lane \
 #include <string.h>
 #include <errno.h>
 #include <ctype.h>
-#include <unistd.h>
+#include <getopt.h>
+
+#ifndef _MSC_VER
+  #include <unistd.h>
+#endif
 
 #include "../htslib/sam.h"
 #include "../htslib/kstring.h"
