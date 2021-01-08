@@ -74,11 +74,11 @@ class Makefile:
   def dump(self):
     n = len( self.m_lines )
     for i in xrange( n ):
-      print i,self.m_lines[ i ],
+      print( i,self.m_lines[ i ] ),
 
   def dumpRange(self, begin, end):
     for i in xrange( begin, end + 1 ):
-      print i,self.m_lines[ i ],
+      print( i,self.m_lines[ i ] ),
 
   def findLineIndex(self, pattern):
     for i,line in enumerate( self.m_lines ):
