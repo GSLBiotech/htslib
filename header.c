@@ -36,7 +36,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <errno.h>
 #include "textutils_internal.h"
 #include "header.h"
-#include "msvc.h"
+
+#ifdef _MSC_VER
+  #include "msvc.h"
+#endif
 
 // Hash table for removing multiple lines from the header
 KHASH_SET_INIT_STR(rm)
