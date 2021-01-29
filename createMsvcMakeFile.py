@@ -243,7 +243,9 @@ def createMakefile( args ):
   makefile.replaceLineStartsWith( '\t$(CC) -shared -Wl,--out-implib=hts.dll', '\t$(CC) $(LIBHTS_OBJS) /dll /out:$@ $(LDFLAGS) $(LIBS)' )
 
   makefile.replaceString( '\t$(CC)', '\t$(LINK)' )
-  makefile.removeLineStartsWith( '\techo \'#define HAVE_DRAND48' )
+  makefile.removeLineStartsWith( '\techo \'#define HAVE_DRAND48' )  
+  makefile.removeLineStartsWith( '\techo \'#define HAVE_LIBCURL' )
+  
   makefile.removeLineStartsWith( '\t$(AR)' )
   makefile.removeLineStartsWith( '\t$(AR)' )
   
