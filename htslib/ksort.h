@@ -81,6 +81,9 @@ extern "C" {
 // problems on Windows.  Don't include htslib/hts_os.h for this as it
 // may not get on with older attempts to fix this in code that includes
 // this file.
+#ifndef _MSC_VER
+extern double hts_drand48(void);
+#endif
 
 typedef struct {
 	void *left, *right;
