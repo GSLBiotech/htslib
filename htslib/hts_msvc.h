@@ -3,6 +3,7 @@
 
 #include <BaseTsd.h>
 typedef SSIZE_T ssize_t;
+typedef SIZE_T size_t;
 
 #define _USE_MATH_DEFINES // M_SQRT2, M_PI
 
