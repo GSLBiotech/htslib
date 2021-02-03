@@ -34,11 +34,12 @@ DEALINGS IN THE SOFTWARE.  */
 #include <stdio.h>
 #include <string.h>
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+  #include <winsock2.h>  //struct timeval
+  #include "htslib/hts_msvc.h"
+#else
   #include <sys/time.h>
   #include <unistd.h>
-#else
-  #include "htslib/hts_msvc.h"
 #endif
 
 #include <assert.h>

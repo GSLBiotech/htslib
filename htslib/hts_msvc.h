@@ -34,8 +34,6 @@ typedef SIZE_T size_t;
   #define S_ISREG(mode)  (((mode) & S_IFMT) == S_IFREG)
 #endif
 
-#include <winsock2.h>  //struct timeval
-
 #define usleep Sleep
 
 #ifndef SSIZE_MAX /* SSIZE_MAX is POSIX 1 */

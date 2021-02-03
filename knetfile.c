@@ -38,7 +38,9 @@
 #include <string.h>
 #include <errno.h>
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+  #include <winsock2.h>  //struct timeval
+#else
   #include <unistd.h>
 #endif
 

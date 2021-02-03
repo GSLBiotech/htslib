@@ -37,6 +37,11 @@ DEALINGS IN THE SOFTWARE.
 #include <sys/time.h>
 #include <errno.h>
 
+#ifdef _MSC_VER
+  #include <winsock2.h>  //struct timeval
+#endif
+
+
 #include "../htslib/thread_pool.h"
 
 

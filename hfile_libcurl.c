@@ -36,6 +36,10 @@ DEALINGS IN THE SOFTWARE.  */
 #endif
 #include <assert.h>
 
+#ifdef _MSC_VER
+  #include <winsock2.h>  //struct timeval
+#endif
+
 #include "hfile_internal.h"
 #ifdef ENABLE_PLUGINS
 #include "version.h"

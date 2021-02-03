@@ -42,7 +42,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+  #include <winsock2.h>  //struct timeval
+#else
   #include <unistd.h>
   #include <sys/time.h>
 #endif

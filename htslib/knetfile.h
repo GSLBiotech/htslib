@@ -42,7 +42,6 @@
 #define netwrite(fd, ptr, len) write(fd, ptr, len)
 #define netclose(fd) close(fd)
 #else
-#include <winsock2.h>
 #define netread(fd, ptr, len) recv(fd, ptr, len, 0)
 #define netwrite(fd, ptr, len) send(fd, ptr, len, 0)
 #define netclose(fd) closesocket(fd)

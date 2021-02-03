@@ -5,6 +5,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <stdint.h> // uint64_t
+#include <winsock2.h>  //struct timeval
 
 int gettimeofday(struct timeval * tp, struct timezone * tzp)
 {
