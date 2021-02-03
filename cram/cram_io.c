@@ -51,7 +51,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _MSC_VER
   #include <unistd.h>
 #else
-  #include <msvc.h>
+  #include "../htslib/hts_msvc.h"
 #endif
 
 #include <zlib.h>

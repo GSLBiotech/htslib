@@ -28,7 +28,7 @@
 #define KNETFILE_H
 
 #ifdef _MSC_VER
-  #include <msvc.h>
+  #include "htslib/hts_msvc.h"
 #endif
 
 #include <stdint.h>

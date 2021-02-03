@@ -1,6 +1,6 @@
 #ifdef _MSC_VER
 
-#include <msvc.h>
+#include "htslib/hts_msvc.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>

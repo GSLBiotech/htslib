@@ -38,7 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "header.h"
 
 #ifdef _MSC_VER
-  #include "msvc.h"
+  #include "htslib/hts_msvc.h"
 #endif
 
 // Hash table for removing multiple lines from the header

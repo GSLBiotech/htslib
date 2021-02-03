@@ -28,7 +28,7 @@
 #include <config.h>
 
 #ifdef _MSC_VER
-  #include <msvc.h>
+  #include "htslib/hts_msvc.h"
 #endif
 
 #include <math.h>

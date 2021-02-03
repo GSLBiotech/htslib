@@ -38,7 +38,7 @@ DEALINGS IN THE SOFTWARE.  */
   #include <sys/time.h>
   #include <unistd.h>
 #else
-  #include <msvc.h>
+  #include "htslib/hts_msvc.h"
 #endif
 
 #include <assert.h>

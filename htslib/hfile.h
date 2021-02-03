@@ -27,7 +27,7 @@ DEALINGS IN THE SOFTWARE.  */
 #define HTSLIB_HFILE_H
 
 #ifdef _MSC_VER
-  #include <msvc.h>
+  #include "htslib/hts_msvc.h"
 #endif
 
 #include <string.h>
